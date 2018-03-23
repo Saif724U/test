@@ -67,13 +67,17 @@ public class HomePage extends AppCompatActivity {
         pendingPosts();
 
         final ArrayList<TimelineRow> timelineRowsList = new ArrayList<>();
-        populate(timelineRowsList);
-
+        MedicalRecord medical_record_1 = new MedicalRecord("Schizophrenia", "Dr. Varuni De Silva", 1, 37, "2011-1-27", R.drawable.prescription1);
+        addNode(timelineRowsList,medical_record_1);
 
         myAdapter = new TimelineViewAdapter(this, 0, timelineRowsList,true);
+
+
+
+
         myListView = (ListView) findViewById(R.id.timeline_listView);
         myListView.setAdapter(myAdapter);
-
+        populate(timelineRowsList);
         final RelativeLayout rel=(RelativeLayout)findViewById(R.id.rel);
 
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -189,9 +193,10 @@ public class HomePage extends AppCompatActivity {
                                     JSONObject presc = prescriptions.getJSONObject(i);
                                     Log.e("cameinner","null"+presc.getString("data"));
 
-                                    MedicalRecord medical_record_1 = new MedicalRecord("Prescription", "Dr. M.I.Inzimam"+"\n\n"+presc.getString("data"), 0, 37, "2011-1-27", R.drawable.no_image_512);
+                                    MedicalRecord medical_record_1 = new MedicalRecord("Prescription", "Dr. M.I.Inzimam"+"\n"+presc.getString("data"), 0, 37, "2011-1-27", R.drawable.no_image_512);
                                     addNode(timelineRowsList,medical_record_1);
                                     Log.e("addedtochain","over");
+                                    myAdapter.notifyDataSetChanged();
 
                                 }
                             }
@@ -199,16 +204,18 @@ public class HomePage extends AppCompatActivity {
                                 JSONArray prescriptions=response.getJSONArray("doctorNotes");
                                 for (int i = 0; i < prescriptions.length(); i++) {
                                     JSONObject presc = prescriptions.getJSONObject(i);
-                                    MedicalRecord medical_record_1 = new MedicalRecord("Doctor Notes", presc.getString("name")+"\n\n"+presc.getString("data"), 1, 37, "2011-1-27", R.drawable.no_image_512);
+                                    MedicalRecord medical_record_1 = new MedicalRecord("Doctor Notes", presc.getString("name")+"\n"+presc.getString("data"), 1, 37, "2011-1-27", R.drawable.no_image_512);
                                     addNode(timelineRowsList,medical_record_1);
+                                    myAdapter.notifyDataSetChanged();
                                 }
                             }
                             if(!response.isNull("reports")){
                                 JSONArray prescriptions=response.getJSONArray("reports");
                                 for (int i = 0; i < prescriptions.length(); i++) {
                                     JSONObject presc = prescriptions.getJSONObject(i);
-                                    MedicalRecord medical_record_1 = new MedicalRecord("Report", presc.getString("name")+"\n\n"+presc.getString("data"), 1, 37, "2011-1-27", R.drawable.no_image_512);
+                                    MedicalRecord medical_record_1 = new MedicalRecord("Report", presc.getString("name")+"\n"+presc.getString("data"), 1, 37, "2011-1-27", R.drawable.no_image_512);
                                     addNode(timelineRowsList,medical_record_1);
+                                    myAdapter.notifyDataSetChanged();
                                 }
                             }
 
@@ -230,7 +237,7 @@ public class HomePage extends AppCompatActivity {
                 });
 
         requestQueue.add(jsonObjectRequest);
-        MedicalRecord medical_record_1 = new MedicalRecord("Schizophrenia", "Dr. Varuni De Silva", 1, 37, "2011-1-27", R.drawable.prescription1);
+       // MedicalRecord medical_record_1 = new MedicalRecord("Schizophrenia", "Dr. Varuni De Silva", 1, 37, "2011-1-27", R.drawable.prescription1);
         /*MedicalRecord medical_record_2 = new MedicalRecord("Depression", "Dr. Rohan Gunawardana", 1, 2400, "2011-5-27", R.drawable.finger);
         MedicalRecord medical_record_3 = new MedicalRecord("Asthma", "Dr. C Amarasena", 1, 752, "2012-5-27", R.drawable.prescription1);
         MedicalRecord medical_record_4 = new MedicalRecord("Hepatitis", "Dr. Godvin Constantine", 1, 122, "2012-1-27", R.drawable.prescription1);
@@ -239,24 +246,25 @@ public class HomePage extends AppCompatActivity {
         MedicalRecord medical_record_7 = new MedicalRecord("Chest X-Ray", "Apollo Hospital", 2, 1452, "2014-12-27", R.drawable.prescription1);
         MedicalRecord medical_record_8 = new MedicalRecord("Serology Test", "Royal Care Hospital", 2, 354, "2011-12-27", R.drawable.prescription1);
         MedicalRecord medical_record_9 = new MedicalRecord("Cold", "Dr. P.N. Thenabadu", 0, 1444, "2016-12-27", R.drawable.prescription1);
+        */
         MedicalRecord medical_record_10 = new MedicalRecord("Cataracts", "Dr. M. Jayatilake", 0, 1700, "2017-12-27", R.drawable.prescription1);
         MedicalRecord medical_record_11 = new MedicalRecord("Actinic Keratosis", "Dr. Mohan Rajakaruna", 0, 2549, "2018-1-12", R.drawable.prescription1);
         MedicalRecord medical_record_12 = new MedicalRecord("Narcolepsy", "Dr. Gamini Ranasinghe", 0, 258, "2011-5-12", R.drawable.prescription1);
 
 
 
-        */addNode(timelineRowsList,medical_record_1);
+        /*addNode(timelineRowsList,medical_record_1);
        /* addNode(timelineRowsList,medical_record_3);
         addNode(timelineRowsList,medical_record_4);
         addNode(timelineRowsList,medical_record_5);
         addNode(timelineRowsList,medical_record_6);
         addNode(timelineRowsList,medical_record_7);
         addNode(timelineRowsList,medical_record_8);
-        addNode(timelineRowsList,medical_record_9);
+        addNode(timelineRowsList,medical_record_9);*/
         addNode(timelineRowsList,medical_record_10);
         addNode(timelineRowsList,medical_record_11);
         addNode(timelineRowsList,medical_record_12);
-*/
+
     }
 
     @Override
@@ -343,7 +351,7 @@ public class HomePage extends AppCompatActivity {
 
         Log.e("addedinnode","null"+temp.getDescr());
         timelineRowsList.add(myRow);
-        //myAdapter.notifyDataSetChanged();
+
 
 
     }

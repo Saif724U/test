@@ -30,7 +30,7 @@ public class QRactivity extends AppCompatActivity {
         });
 
 
-        String text="sajeer ahamed"; // Whatever you need to encode in the QR code
+        String text="{\"ID\":\"8357\"}"; // Whatever you need to encode in the QR code
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE,700,700);
